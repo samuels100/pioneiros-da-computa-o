@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pioneiros e Líderes da Computação</title>
+
+    <style>
+        /*--------------------------------------------
+        1. Variáveis de cores e estilos gerais
+        ----------------------------------------------*/
+        :root {
+            --primary: #1a365d;
+            --accent: #2b6cb0;
+            --bg: #f4f6f9;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --text-muted: #718096;
+            --border: #e2e8f0;
+            --badge-bg: #8bf8ff;
+            --badge-text: #2b6cb0;
+        }
+
+        /* Estilo quando o modo escuro está ativo */
+        body.dark-mode {
+            --primary: #90cdf4;
+            --accent: #63b3ed;
+            --bg: #1a202c;
+            --card-bg: #2d3748;
+            --text: #edf2f7;
+            --text-muted: #a0aec0;
+            --border: #4a5568;
+            --badge-bg: #2c5282;
+            --badge-text: #ebf8ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+            line-height: 1.6;
+        }
+
+        /*------------------------
+        2. Cabeçalho e Navegação
+        --------------------------*/
+        header {
+            padding: 30px 0 10px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .top-controls {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        /* Botão de modo escuro */
+        .toggle-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Navegação fixa no topo */
+        nav {
+            position: sticky;
+            top: 10px;
+            z-index: 1000;
+            background-color: #1a365d;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+            color: #90cdf4;
+        }
+
+        /*--------------------------------------
+        3. Ferramentas de busca e filtro
+        ----------------------------------------*/
+        .filter-section {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border: 1px solid var(--border);
+            margin-bottom: 30px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            border-radius: 8px;
+        }
+
+        .filter-section input, .filter-section select {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background-color: var(--bg);
+            color: var(--text);
+            flex: 1;
+            min-width: 180px;
+        }
+
+        /*------------------------------------------
+        4. Cards das personalidades (Flexbox)
+        -----------------------------------------*/
+        .section-title {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 5px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .cards-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .card img {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .card-content {
+            flex: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .card-header h3 {
+            margin: 0;
+            color: var(--primary);
+            text-transform: capitalize;
+        }
+
+        .badge {
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .card-period {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        blockquote {
+            margin: 10px 0 0;
+            padding-left: 10px;
+            border-left: 3px solid var(--accent);
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /*-----------------------------------------
+        5. Tabela comparativa 
+        -------------------------------------*/
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+
+        th {
+            background-color: #2b6cb0;
+            color: white;
+        }
+
+        /*---------------------------------------------------
+        6. Formulário de votação e Quiz
+        -------------------------------------------------*/
+        .poll-section, .quiz-section {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-top: 30px;
+        }
+
+        .poll-options, .quiz-question {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .poll-option, .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            background-color: #2b6cb0;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .btn-submit:hover {
+            background-color: #1a365d;
+        }
+
+        .quiz-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .quiz-item p {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        #quizResult {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            background-color: var(--bg);
+            border: 1px solid var(--border);
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /*-------------------------------------------------------
+        7. Rodapé
+        -------------------------------------------------------*/
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Responsividade para celulares */
+        @media(max-width: 600px) {
+            .card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .card-header {
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Botão de alternar modo escuro -->
+<div class="top-controls">
+    <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Alternar Tema</button>
+</div>
+
+<!-- Cabeçalho principal -->
+<header>
+    <h1>Pioneiros e Líderes da Computação</h1>
+    <p>Conheça as mentes brilhantes que construíram a base do mundo digital e os líderes da inovação moderna.</p>
+</header>
+
+<!-- Menu de navegação -->
+<nav>
+    <a href="#pioneiros">Pioneiros</a>
+    <a href="#modernos">Líderes Modernos</a>
+    <a href="#tabela">Comparativo</a>
+    <a href="#votacao">Votação</a>
+    <a href="#quiz">Quiz</a>
+</nav>
+
+<!-- Campo de busca e filtro -->
+<div class="filter-section">
+    <input type="text" id="searchInput" onkeyup="filterCards()" placeholder="Busca por nome ou conquista...">
+    <select id="categoryFilter" onchange="filterCards()">
+        <option value="todos">Todas as categorias</option>
+        <option value="pioneiro">Somente pioneiros históricos</option>
+        <option value="moderno">Somente líderes modernos</option>
+    </select>
+</div>
+
+<!-- Seção 1: Pioneiros Históricos -->
+<h2 id="pioneiros" class="section-title">Pioneiros da Ciência da Computação</h2>
+<div class="cards-grid">
+
+    <!-- Ada Lovelace -->
+    <article class="card" data-category="pioneiro">
+        <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=300&q=80" alt="Ada Lovelace">
+        <div class="card-content">
+            <div class="card-header">
+                <h3>Ada Lovelace</h3>
+                <span class="badge">A 1ª Programadora</span>
+            </div>
+            <div class="card-period">1815 - 1852 | Reino Unido</div>
+            <p>Matemática inglesa que escreveu o primeiro algoritmo da história para ser processado por uma máquina (a Máquina Analítica de Babbage).</p>
+            <blockquote>"A máquina analítica tece padrões algébricos assim como o tear de Jacquard tece flores e folhas."</blockquote>
+        </div>
+    </article>
+
+    <!-- Alan Turing -->
+    <article class="card" data-category="pioneiro">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="Alan Turing">
+        <div class="card-content">
+            <div class="card-header">
+                <h3>Alan Turing</h3>
+                <span class="badge">Pai da Computação</span>
+            </div>
+            <div class="card-period">1912 - 1954 | Reino Unido</div>
+            <p>Criou o conceito formal de algoritmo e computação com a "Máquina de Turing" e ajudou a decifrar a máquina Enigma na 2ª Guerra Mundial.</p>
+            <blockquote>"Podemos ver apenas uma curta distância à frente, mas podemos ver que há muito a ser feito."</blockquote>
+        </div>
+    </article>
+
+    <!-- Grace Hopper -->
+    <article class="card" data-category="pioneiro">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80" alt="Grace Hopper">
+        <div class="card-content">
+            <div class="card-header">
+                <h3>Grace Hopper</h3>
+                <span class="badge">Criadora do Compilador</span>
+            </div>
+            <div class="card-period">1906 - 1992 | Estados Unidos</div>
+            <p>Contra-almirante da marinha dos EUA e cientista da computação. Criou o primeiro compilador e popularizou o termo "bug" após encontrar uma mariposa no computador.</p>
+            <blockquote>"A frase mais perigosa na linguagem é: Nós sempre fizemos assim."</blockquote>
+        </div>
+    </article>
+
+    <!-- Margaret Hamilton -->
+    <article class="card" data-category="pioneiro">
+        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80" alt="Margaret Hamilton">
+        <div class="card-content">
+            <div class="card-header">
+                <h3>Margaret Hamilton</h3>
+                <span class="badge">Engenharia de Software</span>
+            </div>
+            <div class="card-period">1936 - presente | Estados Unidos</div>
+            <p>Diretora da divisão de engenharia de software no MIT. Liderou a equipe que desenvolveu o software de navegação para a missão Apollo 11 da NASA.</p>
+            <blockquote>"Não havia escolha a não ser pionar; não havia escola de software."</blockquote>
+        </div>
+    </article>
+
+    <!-- Tim Berners-Lee -->
+    <article class="card" data-category="pioneiro">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" alt="Tim Berners-Lee">
+        <div class="card-content">
+            <div class="card-header">
+                <h3>Tim Berners-Lee</h3>
+                <span class="badge">Criador da Web</span>
+            </div>
+            <div class="card-period">1955 - presente | Reino Unido</div>
+            <p>Engenheiro de software britânico que inventou a World Wide Web (WWW) em 1989, além do protocolo HTTP e do próprio código HTML.</p>
+            <blockquote>"A Web não une computadores, ela une pessoas."</blockquote>
+        </div>
+    </article>
+
+</div>
+
+<!-- Seção 2: Líderes Modernos -->
+<h2 id="modernos" class="section-title">Líderes e Visionários Modernos</h2>
+<div class="cards-grid">
+
+    <!-- Bill Gates -->
+    <article class="card" data-category="moderno">
+        <img src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcRp6DZWqYTpThTw3-LWuap8oG5zBuec6KuBIxfqrcuZkfltu_7AQJMxjM19rOliqKGTA2BTmKZ9HfcGFR8" alt="Bill Gates">
+        <div class="card-content">
+            <div class="card-header">
+                <h3>Bill Gates</h3>
+                <span class="badge">Cofundador da Microsoft</span>
+            </div>
+            <div class="card-period">1955 - presente | Estados Unidos</div>
+            <p>Transformou a computação pessoal ao criar o Windows e popularizar os computadores em casas e escritórios do mundo todo.</p>
+            <blockquote>"Se você der uma tarefa difícil para uma pessoa preguiçosa, ela encontrará uma maneira fácil de fazê-la."</blockquote>
+        </div>
+    </article>
+
+    <!-- Steve Jobs -->
+    <article class="card" data-category="moderno">
+        <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcSa2bq1Ny1itoRMSlyxGSB-iNuGamxd94IoIS004UE_XKCuzGyaPJiYwV_LkIunJOpqYM_QHLuPYmQRUHA" alt="Steve Jobs">
+        <div class="card-content">
+            <div class="card-header">
+                <h3>Steve Jobs</h3>
+                <span class="badge">Cofundador da Apple</span>
+            </div>
+            <div class="card-period">1955 - 2011 | Estados Unidos</div>
+            <p>Revolucionou indústrias inteiras ao lançar o Macintosh, iPod, iPhone e iPad, combinando tecnologia avançada com design intuitivo.</p>
+            <blockquote>"A única maneira de fazer um ótimo trabalho é amar o que você faz."</blockquote>
+        </div>
+    </article>
+
+    <!-- Elon Musk -->
+    <article class="card" data-category="moderno">
+        <img src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcSp_OiHljysB4zEOSl32pqm_OfqYh-JAEtbb0KL2QaabIUMErX2_2B6R5R2dLAExUyXapfVO-2FpPB70w4" alt="Elon Musk">
+        <div class="card-content">
+            <div class="card-header">
+                <h3>Elon Musk</h3>
+                <span class="badge">Tesla e SpaceX</span>
+            </div>
+            <div class="card-period">1971 - presente | África do Sul</div>
+            <p>Empresário focado em inovações futuras como veículos elétricos autônomos, foguetes reutilizáveis e inteligência artificial.</p>
+            <blockquote>"Quando algo é importante o suficiente, você faz, mesmo que as chances não estejam ao seu favor."</blockquote>
+        </div>
+    </article>
+
+</div>
+
+<!-- Seção 3: Tabela Comparativa -->    
+<h2 id="tabela" class="section-title">Resumo e Tabela Comparativa</h2>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Contribuição Principal</th>
+                <th>Época de Destaque</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Ada Lovelace</td>
+                <td>Primeiro Algoritmo (Máquina Analítica)</td>
+                <td>Século XIX (1840)</td>
+                <td>Pioneiro Histórico</td>
+            </tr>
+            <tr>
+                <td>Alan Turing</td> 
+                <td>Máquina de Turing / Pai da Computação</td>
+                <td>Anos 1930 - 1950</td>
+                <td>Pioneiro Histórico</td>
+            </tr>
+            <tr>
+                <td>Margaret Hamilton</td>
+                <td>Software Apollo 11 / Engenharia de Software</td>
+                <td>Anos 1960 - 1970</td>
+                <td>Pioneiro Histórico</td>
+            </tr>
+            <tr>
+                <td>Tim Berners-Lee</td>
+                <td>Criação da WWW / HTML</td>
+                <td>Anos 1980 - 1990</td>
+                <td>Pioneiro Histórico</td>
+            </tr> 
+            <tr>
+                <td>Bill Gates</td>
+                <td>Popularizou o PC com MS Windows</td>
+                <td>Anos 1980 - 2000s</td>
+                <td>Líder Moderno</td>
+            </tr>
+            <tr>
+                <td>Steve Jobs</td>
+                <td>Macintosh / iPhone / Interface Gráfica</td>
+                <td>Anos 1970 - 2010s</td>
+                <td>Líder Moderno</td>
+            </tr>
+            <tr>
+                <td>Elon Musk</td>
+                <td>Carros Elétricos / Foguetes Reutilizáveis</td>
+                <td>Anos 2000s - presente</td>
+                <td>Líder Moderno</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Seção 4: Formulário de Votação -->
+<h2 id="votacao" class="section-title">Qual trajetória mais te inspira?</h2>
+<div class="poll-section">
+    <p>Escolha um dos nomes abaixo e clique para registrar sua opinião:</p>
+    <form id="pollForm" onsubmit="submitVote(event)">
+        <div class="poll-options">
+            <label class="poll-option">
+                <input type="radio" name="pioneiro" value="Ada Lovelace" required> Ada Lovelace
+            </label>
+            <label class="poll-option">
+                <input type="radio" name="pioneiro" value="Alan Turing"> Alan Turing
+            </label>
+            <label class="poll-option">
+                <input type="radio" name="pioneiro" value="Grace Hopper"> Grace Hopper
+            </label>
+            <label class="poll-option">
+                <input type="radio" name="pioneiro" value="Margaret Hamilton"> Margaret Hamilton
+            </label>
+            <label class="poll-option">
+                <input type="radio" name="pioneiro" value="Tim Berners-Lee"> Tim Berners-Lee
+            </label>
+            <label class="poll-option">
+                <input type="radio" name="pioneiro" value="Bill Gates"> Bill Gates
+            </label>
+            <label class="poll-option">
+                <input type="radio" name="pioneiro" value="Steve Jobs"> Steve Jobs
+            </label>
+            <label class="poll-option">
+                <input type="radio" name="pioneiro" value="Elon Musk"> Elon Musk
+            </label>
+        </div>
+        <button type="submit" class="btn-submit">Enviar voto</button>
+    </form>
+
+    <!-- Mensagem de confirmação que aparece após votar -->
+    <p id="voteMsg" style="display:none; color: green; font-weight: bold; margin-top: 15px;"></p>
+</div>
+
+<!-- SEÇÃO 5: QUIZ DE CONHECIMENTOS -->
+<h2 id="quiz" class="section-title">Teste seus Conhecimentos</h2>
+<div class="quiz-section">
+    <p>Responda às perguntas abaixo para testar o que você aprendeu:</p>
+    <form id="quizForm" onsubmit="submitQuiz(event)">
+        
+        <div class="quiz-item">
+            <p>1. Quem é considerado(a) a primeira pessoa programadora da história?</p>
+            <label class="quiz-option"><input type="radio" name="q1" value="a" required> Grace Hopper</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="b"> Ada Lovelace</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="c"> Margaret Hamilton</label>
+        </div>
+
+        <div class="quiz-item">
+            <p>2. Quem inventou a World Wide Web (WWW) em 1989?</p>
+            <label class="quiz-option"><input type="radio" name="q2" value="a" required> Bill Gates</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="b"> Alan Turing</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="c"> Tim Berners-Lee</label>
+        </div>
+
+        <div class="quiz-item">
+            <p>3. Qual destas personalidades popularizou o termo "bug" ao encontrar uma mariposa no computador?</p>
+            <label class="quiz-option"><input type="radio" name="q3" value="a" required> Grace Hopper</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="b"> Steve Jobs</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="c"> Margaret Hamilton</label>
+        </div>
+
+        <div class="quiz-item">
+            <p>4. Margaret Hamilton liderou a equipe de software de qual missão histórica da NASA?</p>
+            <label class="quiz-option"><input type="radio" name="q4" value="a" required> Voyager 1</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="b"> Apollo 11</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="c"> Curiosity</label>
+        </div>
+
+        <button type="submit" class="btn-submit">Verificar Pontuação</button>
+    </form>
+
+    <div id="quizResult"></div>
+</div>
+
+<!-- Rodapé -->
+<footer>
+    <p>Projeto de estudos Front-end | HTML, CSS e JavaScript</p>
+</footer>
+
+<!-- JavaScript (Interatividade da página) -->
+<script>
+    // 1. Função do modo escuro
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+    }
+
+    // 2. Função da busca e filtro de categoria
+    function filterCards() {
+        const searchVal = document.getElementById("searchInput").value.toLowerCase();
+        const categoryVal = document.getElementById("categoryFilter").value;
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            const category = card.getAttribute("data-category");
+
+            const matchesSearch = text.includes(searchVal);
+            const matchesCategory = (categoryVal === "todos") || (category === categoryVal);
+
+            if (matchesSearch && matchesCategory) {
+                card.style.display = "flex";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+
+    // 3. Função do formulário de votação
+    function submitVote(e) {
+        e.preventDefault(); // Impede o recarregamento da página
+        const selected = document.querySelector('input[name="pioneiro"]:checked');
+        if (selected) {
+            const msg = document.getElementById("voteMsg");
+            msg.textContent = `Obrigado pelo seu voto! Você escolheu: ${selected.value}.`;
+            msg.style.display = "block";
+        }
+    }
+
+    // 4. Função do Quiz
+    function submitQuiz(e) {
+        e.preventDefault();
+        
+        // Respostas corretas
+        const answers = {
+            q1: "b",
+            q2: "c",
+            q3: "a",
+            q4: "b"
+        };
+
+        let score = 0;
+        const total = Object.keys(answers).length;
+
+        // Verifica resposta por resposta
+        for (let q in answers) {
+            const selectedOption = document.querySelector(`input[name="${q}"]:checked`);
+            if (selectedOption && selectedOption.value === answers[q]) {
+                score++;
+            }
+        }
+
+        // Exibe o resultado com feedback
+        const resultDiv = document.getElementById("quizResult");
+        resultDiv.style.display = "block";
+        
+        if (score === total) {
+            resultDiv.style.color = "green";
+            resultDiv.textContent = `Parabéns! Você acertou ${score} de ${total} perguntas! 🏆`;
+        } else if (score >= total / 2) {
+            resultDiv.style.color = "#d69e2e"; // Amarelo/Dourado
+            resultDiv.textContent = `Bom trabalho! Você acertou ${score} de ${total} perguntas. 👍`;
+        } else {
+            resultDiv.style.color = "red";
+            resultDiv.textContent = `Você acertou ${score} de ${total} perguntas. Que tal ler os cards novamente e tentar de novo? 📚`;
+        }
+    }
+</script>
+
+</body>
+</html>
